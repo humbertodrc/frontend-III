@@ -1,8 +1,8 @@
 import styles from "@/styles/Home.module.css";
 import Head from "next/head";
-import {useEffect, useState} from "react";
-import { Character } from '../interface/index';
-import { Card } from '@/components/Card';
+import { useEffect, useState } from "react";
+import { Character } from '../interface';
+import Image from 'next/image';
 
 export default function Home() {
 	const [characters, setCharacters] = useState<Character[]>();
@@ -36,9 +36,12 @@ export default function Home() {
 			<main className={`${styles.main}`}>
         <h1>Bienvenido a mi sitio web</h1>
         <div className={styles.grid}>
-          {characters?.map((character) => (
-            <Card key={character.tail} character={character} />
-          ))}
+				{characters?.map((character) => (
+            <div key={character.tail}>
+              <h3>{character.name}</h3>
+              <Image src={character.image} alt={character.name} width={180} height={250} />
+            </div>
+            ))}
         </div>
 			</main>
 		</>
