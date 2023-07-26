@@ -1,5 +1,5 @@
 import {FC} from "react";
-import { Character } from "@/interface";
+import { Character } from "@/interface/character";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from 'next/router';
 import Image from 'next/image';

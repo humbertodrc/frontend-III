@@ -1,5 +1,5 @@
 import { Card } from '@/components/Card';
-import { Character } from '@/interface';
+import { Character } from '@/interface/character';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react'
 
