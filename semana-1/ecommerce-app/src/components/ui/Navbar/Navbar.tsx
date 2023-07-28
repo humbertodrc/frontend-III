@@ -2,8 +2,19 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 export const Navbar = () => {
+
+	const router = useRouter()
+
+	
+	// console.log(router);
+
+	const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		router.push(router.pathname, router.asPath, { locale: e.target.value })
+	}
+
 	return (
 		<nav className={styles.navbar}>
 			<div>
@@ -26,7 +37,13 @@ export const Navbar = () => {
 					<Link href="/contacto">
 						Contacto
 					</Link>
-        </li>
+				</li>
+				<li>
+					<select onChange={changeLanguage} name="idioma" id="idioma">
+						<option value="es">Español</option>
+						<option value="en">English</option>
+					</select>
+				</li>
 			</ul>
 		</nav>
 	);
