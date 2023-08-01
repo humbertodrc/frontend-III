@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {FC} from "react";
+import { FC } from "react";
 import { Navbar } from '../ui/navbar';
 
 interface Props {
@@ -9,19 +9,27 @@ interface Props {
   keywords?: string
 }
 
-export const Layout: FC<Props> = ({children, title}) => {
+export const Layout: FC<Props> = ({children, title, description, keywords}) => {
 	return (
 		<>
 			<Head>
-        <title>{title}</title>
+				<title>{title}</title>
+				<meta charSet="utf-8" />
+				<meta name="author" content="Humberto Rivero" />
 				<meta
 					name="description"
-					content="¡Encuentra tu colección de figuras Amiibo en nuestro eCommerce! Explora una amplia selección de personajes, como Mario, Zelda, Pokémon y muchos más. Conecta con tus personajes favoritos y desbloquea contenido especial en tus juegos. ¡Envío rápido y seguro garantizado!"
+					content={description || "Amiibo API es una tienda de figuras interactivas que desbloquean contenido en tus juegos favoritos."}
 				/>
 				<meta
 					name="keywords"
-					content="Figuras Amiibo, Colección Amiibo, Personajes de Videojuegos, Amiibo API, Mario, Zelda, Pokémon, Juguetes Interactivos, Desbloquear Contenido, Comprar Amiibo, Coleccionables de Juegos, Tienda de Amiibo."
+					content={keywords || "amiibo, nintendo, figuras, interactivas, juegos, videojuegos"}
 				/>
+				{/*Información compartida en redes sociales. Estos metadatos ayudan a las redes sociales y plataformas a mostrar vistas previas enriquecidas cuando los enlaces de la página se comparten. */}
+				<meta property="og:title" content={title} />
+				<meta property="og:description" content={description || "Amiibo API es una tienda de figuras interactivas que desbloquean contenido en tus juegos favoritos."} />
+				<meta property="og:type" content="website" />
+				<meta property='og:image' content='/mario.jpg' />
+
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
       </Head>

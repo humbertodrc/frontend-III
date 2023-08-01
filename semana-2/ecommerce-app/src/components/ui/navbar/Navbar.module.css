@@ -12,3 +12,21 @@
   list-style: none;
   gap: 1rem;
 }
+
+.localeSwitch {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  margin-left: 20px;
+}
+
+.localeSwitch p {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.active {
+  color:red;
+}
