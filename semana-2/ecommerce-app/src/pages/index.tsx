@@ -12,7 +12,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ characters }) => {
 	
-	const { locale, locales, defaultLocale } = useRouter();
+	const { locale } = useRouter();
 	
 	const localeConten = CONTENT_BY_LOCALE[locale as keyof typeof CONTENT_BY_LOCALE]
 

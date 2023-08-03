@@ -9,8 +9,6 @@ export const Navbar = () => {
 
 	const { locale, asPath } = useRouter();
 	
-	console.log(locale);
-
 	return (
 		<nav className={styles.navbar}>
 			<div>
