@@ -27,7 +27,7 @@ export const Navbar = () => {
 					<Link href="/carrito">Carrito</Link>
 				</li>
 				<li className={styles.localeSwitch}>
-					<Link href={asPath} locale={locales.ES_ES}>
+					<Link href={asPath || '/'} locale={locales.ES_ES}>
 						<p className={locale === locales.ES_ES ? styles.active : ""}>
 							<Image
 								src="/spanish.png"
@@ -38,7 +38,7 @@ export const Navbar = () => {
 							{localeNames[locales.ES_ES as keyof typeof localeNames]}
 						</p>
 					</Link>
-					<Link href={asPath} locale={locales.EN_US}>
+					<Link href={asPath || '/'} locale={locales.EN_US}>
 						<p className={locale === locales.EN_US ? styles.active : ""}>
 							<Image
 								src="/english.png"
@@ -49,7 +49,7 @@ export const Navbar = () => {
 							{localeNames[locales.EN_US as keyof typeof localeNames]}
 						</p>
 					</Link>
-					<Link href={asPath} locale={locales.PT_BR}>
+					<Link href={asPath || '/'} locale={locales.PT_BR}>
 						<p className={locale === locales.PT_BR ? styles.active : ""}>
 							<Image
 								src="/portuguese.png"

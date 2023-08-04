@@ -5,6 +5,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { Character } from "../interface";
 import { useRouter } from 'next/router';
 import { CONTENT_BY_LOCALE } from '@/locale';
+import { defaultLocale } from '@/locale/constants';
 
 interface Props {
 	characters: Character[];
@@ -12,7 +13,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ characters }) => {
 	
-	const { locale } = useRouter();
+	const { locale = defaultLocale } = useRouter();
 	
 	const localeConten = CONTENT_BY_LOCALE[locale as keyof typeof CONTENT_BY_LOCALE]
 

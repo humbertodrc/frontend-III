@@ -2,7 +2,6 @@ import { Layout } from "@/components/layouts/Layout";
 import { Card } from "@/components/ui/card";
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { Character } from "../../interface/character";
-import { locales } from '../../locale/constants';
 
 interface Props {
 	character: Character;
@@ -29,11 +28,7 @@ export const getStaticPaths:GetStaticPaths = async (locales) => {
 	const paths = data.flatMap((character: Character) =>
     idiomas.map((locale: string) => ({ params: { id: character.tail }, locale }))
 	);
-	console.log(paths);
-	
-	const paths2 = data.map((character: Character) => ({ params: { id: character.tail, locale: idiomas } }));
-	console.log(paths2);
-	
+
 	return {
 		paths,
 		fallback: false
