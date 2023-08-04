@@ -6,6 +6,7 @@ import { Character } from "../interface";
 import { useRouter } from 'next/router';
 import { CONTENT_BY_LOCALE } from '@/locale';
 import { defaultLocale } from '@/locale/constants';
+import { getCharacters } from '@/service';
 
 interface Props {
 	characters: Character[];
@@ -32,9 +33,9 @@ const Home: NextPage<Props> = ({ characters }) => {
 }
 
 export const getStaticProps:GetStaticProps = async () => {
-	const characters = await fetch("https://www.amiiboapi.com/api/amiibo/");
-	const resp = await characters.json();
-	const data = resp.amiibo.slice(0, 20);
+	
+	const data = await getCharacters()
+	
 	return {
 		props: {
 			characters: data

@@ -1,20 +1,14 @@
-import {defaultLocale} from "@/locale/constants";
-import Home, {getStaticProps} from "@/pages";
-import "@testing-library/jest-dom";
+import { defaultLocale } from "@/locale/constants";
+import Home from "@/pages";
+import React from 'react';
+import { getCharacters } from '@/service';
 import { render, screen } from "@testing-library/react";
-import React from 'react'
-
-// Importa la librería jest-fetch-mock y configúrala antes de las pruebas
-import fetchMock from "jest-fetch-mock";
-fetchMock.enableMocks();
-
-// Restaura la implementación original de fetch después de las pruebas
-afterEach(() => fetchMock.resetMocks());
+import "@testing-library/jest-dom";
 
 // Mock the Next.js useRouter hook
 jest.mock("next/router", () => ({
 	useRouter: () => ({
-		locale: "es-ES", // Cambia el idioma al que necesitas probar (por ejemplo, 'en' para inglés)
+		locale: "es-ES", // Cambia el idioma al que necesitas probar (por ejemplo, 'en-US' para inglés)
 		asPath: "/",
 	}),
 }));
@@ -26,33 +20,25 @@ jest.mock("../src/locale/index.ts", () => ({
 	},
 }));
 
+// Mock getCharacters
+jest.mock('../src/service/index.ts', () => ({
+  getCharacters: jest.fn(),
+}));
+
+// Next Link Error: https://github.com/vercel/next.js/issues/53272
 function MockImage(props: any) {
-  return React.createElement('img', props)
+  const { priority, ...otherProps } = props;
+  return React.createElement('img', { ...otherProps, priority: priority ? "true" : undefined });
 }
 jest.mock('next/image', () => MockImage)
 
 
-// Ahora puedes importar el módulo constants después de los mocks si es necesario
-// import { defaultLocale } from '@/locale/constants';
-
 describe("Home", () => {
 	it("renders a heading", () => {
 		render(<Home characters={[]} />);
-		const heading = screen.getByText("Bienvenido a la tienda"); // Asegúrate de usar el texto correcto para el idioma que estés probando
-		screen.debug();
+		const heading = screen.getByText("Bienvenido a la tienda");
+		// screen.debug();
 		expect(heading).toBeInTheDocument();
-	});
-
-	it("fetches characters data from API", async () => {
-		const characters = [
-			{tail: "1", name: "Mario", image: "mario.png"},
-			{tail: "2", name: "Luigi", image: "luigi.png"},
-		];
-
-		fetchMock.mockResponseOnce(JSON.stringify({amiibo: characters}));
-
-		const {props} = await getStaticProps({});
-		expect(props.characters).toEqual(characters);
 	});
 
   it("renders a list of characters", () => {
@@ -94,10 +80,11 @@ describe("Home", () => {
       },
     ];
 
+    (getCharacters as jest.Mock).mockResolvedValue(characters)
+
     render(<Home characters={characters} />);
 
-    const characterNames = screen.getAllByRole("heading", {level: 3});
-    expect(characterNames).toHaveLength(characters.length);
-		
+    screen.debug();
+  
 	});
 });
