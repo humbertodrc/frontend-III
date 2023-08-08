@@ -1,14 +1,10 @@
+import { Layout } from "@/components/layouts/Layout";
+import { Card } from "@/components/ui/card";
+import { CONTENT_BY_LOCALE } from '@/locale';
 import styles from "@/styles/Home.module.css";
-import Head from "next/head";
-import {useEffect, useState} from "react";
-import {Character} from "../interface";
-import Image from "next/image";
-import {Card} from "@/components/ui/card";
-import {Layout} from "@/components/layouts/Layout";
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { CONTENT_BY_LOCALE } from '@/locale';
-import { locales } from '../locale/constants';
+import { Character } from "../interface";
 
 interface Props {
 	characters: Character[];
