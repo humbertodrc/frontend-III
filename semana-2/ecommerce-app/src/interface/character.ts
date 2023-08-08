@@ -15,10 +15,10 @@ export interface Character {
 }
 
 export interface Release {
-	au: Date;
-	eu: Date;
-	jp: Date;
-	na: Date;
+	au: string;
+	eu: string;
+	jp: string;
+	na: string;
 }
 
 export interface Serie {
