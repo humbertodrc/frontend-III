@@ -1,49 +1,39 @@
-import { defaultLocale } from "@/locale/constants";
-import Home from "@/pages";
-import React from 'react';
+import Home, { getStaticProps } from '@/pages';
 import { getCharacters } from '@/service';
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 
-// Mock the Next.js useRouter hook
-jest.mock("next/router", () => ({
-	useRouter: () => ({
-		locale: "es-ES", // Cambia el idioma al que necesitas probar (por ejemplo, 'en-US' para inglés)
-		asPath: "/",
-	}),
-}));
+// Mock de Next.js useRouter hook
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    locale: "es-ES",
+    asPath: "/"
+  })
+}))
 
-// Mock the CONTENT_BY_LOCALE object
-jest.mock("../src/locale/index.ts", () => ({
-	CONTENT_BY_LOCALE: {
-		[defaultLocale]: {home: {title: "Bienvenido a la tienda"}}, // Agrega el contenido para 'es-ES'
-	},
-}));
-
-// Mock getCharacters
+// Mock del servicio que trae los caracteres
 jest.mock('../src/service/index.ts', () => ({
-  getCharacters: jest.fn(),
-}));
+  getCharacters: jest.fn()
+}))
 
-// Next Link Error: https://github.com/vercel/next.js/issues/53272
-function MockImage(props: any) {
-  const { priority, ...otherProps } = props;
-  return React.createElement('img', { ...otherProps, priority: priority ? "true" : undefined });
+// Mock de Next.js Image
+function MockImg(props: any) {
+  const { priority, ...otherProps } = props
+  return React.createElement('img', {...otherProps, priority: priority ? "true" : undefined})
 }
-jest.mock('next/image', () => MockImage)
+jest.mock('next/image', () => MockImg)
 
+describe('Home', () => {
+  it('Renders a Heading', () => {
+    render(<Home characters={[]} />)
+    // screen.debug()
+    const heading = screen.getByText('Bienvenido a la tienda')
+    expect(heading).toBeInTheDocument()
+  })
 
-describe("Home", () => {
-	it("renders a heading", () => {
-		render(<Home characters={[]} />);
-		const heading = screen.getByText("Bienvenido a la tienda");
-		// screen.debug();
-		expect(heading).toBeInTheDocument();
-	});
-
-  it("renders a list of characters", () => {
-    
-		const characters = [
+  it('Render list character', async() => {
+    const characters = [
       {
         tail: "1",
         name: "Mario",
@@ -82,9 +72,11 @@ describe("Home", () => {
 
     (getCharacters as jest.Mock).mockResolvedValue(characters)
 
-    render(<Home characters={characters} />);
+    const { props } = await getStaticProps()
 
-    screen.debug();
+    render(<Home characters={props.characters} />)
+
+    screen.debug()
   
-	});
-});
+  })
+})

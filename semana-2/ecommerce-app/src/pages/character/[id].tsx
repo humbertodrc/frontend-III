@@ -54,7 +54,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	} catch (error) {
 		console.error('No se pudo obtener el personaje', error);
 		return {
-			notFound: true
+			props: {
+				character: {},
+			}
 		}
 	}
 	

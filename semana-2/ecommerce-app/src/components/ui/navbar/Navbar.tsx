@@ -2,13 +2,14 @@ import Image from "next/image";
 import React from "react";
 import styles from "./Navbar.module.css";
 import Link from "next/link";
-import { localeNames, locales } from '@/locale/constants';
 import { useRouter } from 'next/router';
+import { locales, localesNames } from '@/locale/constants';
 
 export const Navbar = () => {
 
 	const { locale, asPath } = useRouter();
-	
+	console.log(locale, asPath);
+
 	return (
 		<nav className={styles.navbar}>
 			<div>
@@ -27,37 +28,37 @@ export const Navbar = () => {
 					<Link href="/carrito">Carrito</Link>
 				</li>
 				<li className={styles.localeSwitch}>
-					<Link href={asPath || '/'} locale={locales.ES_ES}>
+					<Link href={asPath} locale={locales.ES_ES}>
 						<p className={locale === locales.ES_ES ? styles.active : ""}>
 							<Image
-								src="/spanish.png"
+								src="/img/spanish.png"
 								alt="Español"
 								width={20}
 								height={20}
 							/>
-							{localeNames[locales.ES_ES as keyof typeof localeNames]}
+							{localesNames[locales.ES_ES as keyof typeof localesNames]}
 						</p>
 					</Link>
-					<Link href={asPath || '/'} locale={locales.EN_US}>
+					<Link href={asPath} locale={locales.EN_US}>
 						<p className={locale === locales.EN_US ? styles.active : ""}>
 							<Image
-								src="/english.png"
-								alt="English"
+								src="/img/english.png"
+								alt="Spanish"
 								width={20}
 								height={20}
 							/>
-							{localeNames[locales.EN_US as keyof typeof localeNames]}
+							{localesNames[locales.EN_US as keyof typeof localesNames]}
 						</p>
 					</Link>
-					<Link href={asPath || '/'} locale={locales.PT_BR}>
+					<Link href={asPath} locale={locales.PT_BR}>
 						<p className={locale === locales.PT_BR ? styles.active : ""}>
 							<Image
-								src="/portuguese.png"
-								alt="Português"
+								src="/img/portuguese.png"
+								alt="Portugues"
 								width={20}
 								height={20}
 							/>
-							{localeNames[locales.PT_BR as keyof typeof localeNames]}
+							{localesNames[locales.PT_BR as keyof typeof localesNames]}
 						</p>
 					</Link>
 				</li>
