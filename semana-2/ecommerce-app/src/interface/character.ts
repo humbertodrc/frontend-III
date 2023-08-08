@@ -20,3 +20,8 @@ export interface Release {
 	jp: Date;
 	na: Date;
 }
+
+export interface Serie {
+	key: string;
+	name: string;
+}
