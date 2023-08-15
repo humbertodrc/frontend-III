@@ -76,7 +76,7 @@ describe('Home', () => {
 
     render(<Home characters={props.characters} />)
 
-    screen.debug()
+    // screen.debug()
   
   })
 })

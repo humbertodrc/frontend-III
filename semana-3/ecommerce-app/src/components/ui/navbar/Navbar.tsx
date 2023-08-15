@@ -8,7 +8,6 @@ import { locales, localesNames } from '@/locale/constants';
 export const Navbar = () => {
 
 	const { locale, asPath } = useRouter();
-	console.log(locale, asPath);
 
 	return (
 		<nav className={styles.navbar}>
