@@ -11,6 +11,8 @@ export function middleware(req:NextRequest, res: NextResponse) {
 
   if(url.includes("/admin") && !cookie) {
     // Si no existe la cookie, redireccionar a la página de login
-    return NextResponse.redirect("http://localhost:3001/login");
+    return NextResponse.redirect("http://localhost:3000/login");
   }
+
+  return NextResponse.next();
 }

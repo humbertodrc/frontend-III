@@ -1,7 +1,6 @@
 import { Layout } from "@/components/layouts/Layout";
-import { useState } from 'react';
-import { User } from '../../interface/users';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 const LoginPage = () => {
 
@@ -21,7 +20,7 @@ const LoginPage = () => {
 
 	const hanldeSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		const response = await fetch('http://localhost:3001/api/login', {
+		const response = await fetch('http://localhost:3000/api/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
