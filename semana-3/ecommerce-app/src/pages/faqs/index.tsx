@@ -7,16 +7,8 @@ interface Props{
   faqs: Faq[]
 }
 
-const faqs = [
-  {
-    id: 1,
-    question: "¿Qué son las figuras amiibo?",
-    answer: "Las figuras amiibo son juguetes interactivos..."
-  },
-]
 
-
-const faqsPage: NextPage<Props> = () => {
+const faqsPage: NextPage<Props> = ({ faqs }) => {
 
   return (
     <Layout title="Preguntas Frecuentes">
@@ -32,18 +24,18 @@ const faqsPage: NextPage<Props> = () => {
   )
 }
 
-// export const getStaticProps = async () => {
+export const getStaticProps = async () => {
 
   // Modificar la url por las que nos da Vercel al hacer deploy
-  // const response = await fetch('http://localhost:3000/api/faqs')
-  // const faqs = await response.json()
+  const response = await fetch('https://frontend-fvme6p1h1-danieldamian09.vercel.app/api/faqs')
+  const faqs = await response.json()
 
-  // return {
-  //   props: {
-  //     faqs
-  //   }
-  // }
+  return {
+    props: {
+      faqs
+    }
+  }
 
-// }
+}
 
 export default faqsPage
