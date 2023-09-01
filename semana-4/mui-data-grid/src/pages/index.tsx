@@ -1,7 +1,70 @@
 import Head from 'next/head'
-import Button from '@mui/material/Button'
+import { Container } from '@mui/material'
+import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid'
+import {useState} from 'react'
+import { people } from '@/database'
+import { Person } from '@/interface'
+import { Formulario } from '@/components/Formulario'
+
+const columns:GridColDef[] = [
+  {
+    field: 'id',
+    headerName: 'ID',
+    minWidth: 70,
+    sortable: true,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  },
+  {
+    field: 'lastName',
+    headerName: 'Last name',
+    minWidth: 70,
+    flex: 1,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  },
+  {
+    field: 'firstName',
+    headerName: 'First name',
+    minWidth: 70,
+    flex: 1,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  },
+  {
+    field: 'age',
+    headerName: 'Age',
+    type: 'number',
+    minWidth: 50,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  },
+  {
+    field: 'house',
+    headerName: 'House',
+    minWidth: 70,
+    flex: 1,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  },
+  {
+    field: 'title',
+    headerName: 'Title',
+    minWidth: 70,
+    flex: 1,
+    renderCell: (params: GridCellParams) => <>{params.value}</>
+  }
+]
 
 export default function Home() {
+
+  const [peopleData, setPeopleData] = useState(people)
+
+  
+  const pageSize = 5;
+  const pageSizeOptions = [5, 10, 20]; 
+  
+  const countPerson = peopleData.length + 1
+  
+  const addPerson = (person: Person) => {
+    setPeopleData([...peopleData, person])
+  }
+
   return (
     <>
       <Head>
@@ -11,7 +74,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Button variant='contained'>Hola Mundo</Button>
+        {/* Formulario */}
+        <Formulario addPerson={addPerson} countPerson={countPerson} />
+        {/* DataGrid */}
+        <Container maxWidth='lg' sx={{paddingTop: "20px"}}>
+          <DataGrid
+            columns={columns}
+            rows={peopleData}
+            disableColumnSelector
+            disableRowSelectionOnClick
+            autoHeight
+            pageSizeOptions={pageSizeOptions}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: pageSize,
+                }
+              }
+            }}
+            
+            //Para que los id sean unicos
+            // getRowId={(row) => row.id}
+          />
+        </Container>
       </main>
     </>
   )
