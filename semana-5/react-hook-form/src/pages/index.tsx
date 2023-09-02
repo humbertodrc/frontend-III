@@ -1,8 +1,13 @@
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Head from "next/head";
+import { Form } from '@/components/Form';
+
+import Button from "@mui/material/Button";
 
 export default function Home() {
+
+
 	return (
 		<>
 			<Head>
@@ -16,6 +21,7 @@ export default function Home() {
 					<Typography align="center" variant="h2">
 						React Hook Form
 					</Typography>
+					<Form />
 				</Container>
 			</main>
 		</>
