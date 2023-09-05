@@ -28,6 +28,17 @@ const {control} = useForm();
  <DevTool control={control} />
 ```
 
+## Agregar validaciones con yup
+```sh
+npm i yup
+```
+```sh
+npm install @hookform/resolvers yup
+```
+
+## Consultar los metodos de yup en: https://www.npmjs.com/package/yup
+
+
 ## Methods de useForm:
 
 **`register`**: Este método permite registrar un campo de entrada en el formulario y habilitar su seguimiento. Recibe el nombre del campo como argumento.
