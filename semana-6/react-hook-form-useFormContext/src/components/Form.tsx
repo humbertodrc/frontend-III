@@ -1,41 +1,43 @@
-import { Button, FormControl, InputLabel, MenuItem } from "@mui/material";
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Select from "@mui/material/Select";
 // import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Controller, useForm } from "react-hook-form";
-import { CustomTextField } from './Inputs/CustomTextField';
+import { useFormContext } from "react-hook-form";
+import confetti from "canvas-confetti";
 // Extra
-import { ErrorMessage } from '@hookform/error-message';
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
+import { useState } from 'react';
+import { OtherData } from './OtherData';
+import { PersonalData } from './PersonalData';
 
 export const Form = () => {
 
-	// Creamos el schema
-	const schema = yup.object({
-		name: yup.string().required("Este campo es requerido").min(2, "Mínimo 2 caracteres").max(10, "Máximo 10 caracteres"),
-		lastName: yup.string().required("Este campo es requerido").min(2, "Mínimo 2 caracteres").max(10, "Máximo 10 caracteres"),
-		email: yup.string().required("Este campo es requerido").email("El correo no es válido").matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Debe ser un email valido"),
-		gender: yup.string().required("Es campo es requerido")
-	})
+	const [step, setStep] = useState(1)
 
-	type DataForm = yup.InferType<typeof schema>
-
-	const {
-		control,
-		register,
-		formState: {errors},
-		handleSubmit,
-		getValues,
-	} = useForm<DataForm>({resolver: yupResolver(schema), defaultValues: {}});
+	const {handleSubmit} = useFormContext();
 
 	const onSubmit = (data: any) => {
 		console.log(data);
+		confetti({
+			zIndex: 999,
+			particleCount: 100,
+			spread: 160,
+			angle: -100,
+			origin: {
+				x: 1,
+				y: 0,
+			},
+		});
 	};
+
+	const nextStep = () => {
+		setStep(step + 1)
+	}
+
+	const prevStep = () => {
+		setStep(step - 1)
+	}
 
 	return (
 		<Box sx={{maxWidth: "500px"}}>
@@ -47,76 +49,15 @@ export const Form = () => {
 					Datos personales
 				</Typography>
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<CustomTextField
-						name="name"
-						label="Nombre"
-						type="text"
-						control={control}
-						defaultValue=""
-					/>
 
-					<Typography variant='caption' color='red'>
-						{errors.name?.message}
-					</Typography>
+					{step === 1 && <PersonalData />}
 
-					<CustomTextField
-						name="lastName"
-						label="Apellido"
-						type="text"
-						control={control}
-						defaultValue=""
-					/>
-					
-
-					<Typography variant='caption' color='red'>
-					{errors.lastName?.message}
-					</Typography>
-
-					<CustomTextField
-						name="email"
-						label="Correo"
-						type="email"
-						control={control}
-						defaultValue=""
-					/>
-
-					<Typography variant='caption' color='red'>
-						{errors.email?.message}
-					</Typography>
-
-					<FormControl fullWidth>
-						<InputLabel>Genero</InputLabel>
-						<Controller
-							name="gender"
-							control={control}
-							rules={{required: true}}
-							defaultValue={""}
-							render={({field}) => (
-								<Select
-									{...field}
-									label="Género"
-								>
-									<MenuItem value="famale">Femenino</MenuItem>
-									<MenuItem value="male">Masculino</MenuItem>
-									<MenuItem value="other">Otro</MenuItem>
-								</Select>
-							)}
-						/>
-					</FormControl>
-
-					<Typography variant='caption' color='red'>
-						{errors.gender?.message}
-					</Typography>
+					{step === 2 && <OtherData />}
 
 					<Box>
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							sx={{mt: 2}}
-						>
-							Enviar
-						</Button>
+						{step > 1 && <Button onClick={prevStep}>Anterior</Button>}
+						{step < 2 && <Button onClick={nextStep}>Siguiente</Button>}
+						{step === 2 && <Button type="submit">Enviar</Button>}
 					</Box>
 				</form>
 			</Paper>

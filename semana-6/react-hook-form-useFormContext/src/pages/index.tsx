@@ -1,12 +1,20 @@
-import Typography from "@mui/material/Typography";
+import { Form } from "@/components/Form";
 import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import Head from "next/head";
-import { Form } from '@/components/Form';
 
-import Button from "@mui/material/Button";
+import { schema } from "@/rules";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useForm } from "react-hook-form";
+import * as yup from "yup";
 
 export default function Home() {
+	type DataForm = yup.InferType<typeof schema>;
 
+	const method = useForm<DataForm>({
+		resolver: yupResolver(schema),
+		defaultValues: {},
+	});
 
 	return (
 		<>
@@ -21,7 +29,9 @@ export default function Home() {
 					<Typography align="center" variant="h2">
 						React Hook Form
 					</Typography>
-					<Form />
+						<FormProvider {...method}>
+						<Form />
+					</FormProvider>
 				</Container>
 			</main>
 		</>
