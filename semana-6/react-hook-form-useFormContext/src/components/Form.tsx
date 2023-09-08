@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import { Controller, useForm } from "react-hook-form";
 import { CustomTextField } from './Inputs/CustomTextField';
 // Extra
-import { ErrorMessage } from '@hookform/error-message';
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ErrorMessage } from '@hookform/error-message';
 
 
 export const Form = () => {
@@ -56,7 +56,7 @@ export const Form = () => {
 					/>
 
 					<Typography variant='caption' color='red'>
-						{errors.name?.message}
+						<ErrorMessage errors={errors} name="name" />
 					</Typography>
 
 					<CustomTextField
@@ -69,7 +69,7 @@ export const Form = () => {
 					
 
 					<Typography variant='caption' color='red'>
-					{errors.lastName?.message}
+						<ErrorMessage errors={errors} name="lastName" />
 					</Typography>
 
 					<CustomTextField
@@ -81,7 +81,7 @@ export const Form = () => {
 					/>
 
 					<Typography variant='caption' color='red'>
-						{errors.email?.message}
+						<ErrorMessage errors={errors} name="email" />
 					</Typography>
 
 					<FormControl fullWidth>
@@ -105,7 +105,7 @@ export const Form = () => {
 					</FormControl>
 
 					<Typography variant='caption' color='red'>
-						{errors.gender?.message}
+						<ErrorMessage errors={errors} name='gender' />
 					</Typography>
 
 					<Box>
