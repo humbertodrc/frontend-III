@@ -12,13 +12,6 @@ import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-// Como estamos usando yup para validar los campos, podemos crear una interfaz desde el schema
-// interface DataForm {
-// 	name: string;
-// 	lastName: string;
-// 	email: string;
-// 	gender: string;
-// }
 
 export const Form = () => {
 
@@ -59,15 +52,11 @@ export const Form = () => {
 						label="Nombre"
 						type="text"
 						control={control}
-						// error={errors.name ? true : false}
-						// message={errors.name?.message}
 						defaultValue=""
 					/>
 
-					{/* {errors.name && <span>Este campo es requerido</span>} */}
 					<Typography variant='caption' color='red'>
 						{errors.name?.message}
-						{/* <ErrorMessage errors={errors} name="name" render={} /> */}
 					</Typography>
 
 					<CustomTextField
@@ -75,13 +64,10 @@ export const Form = () => {
 						label="Apellido"
 						type="text"
 						control={control}
-						// error={errors.lastName ? true : false}
-						// message={errors.lastName?.message}
 						defaultValue=""
 					/>
 					
 
-					{/* {errors.lastName && <span>Este campo es requerido</span>} */}
 					<Typography variant='caption' color='red'>
 					{errors.lastName?.message}
 					</Typography>
@@ -91,17 +77,13 @@ export const Form = () => {
 						label="Correo"
 						type="email"
 						control={control}
-						// error={errors.email ? true : false}
-						// message={errors.email?.message}
 						defaultValue=""
 					/>
 
-					{/* {errors.email && <span>Este campo es requerido</span>} */}
 					<Typography variant='caption' color='red'>
 						{errors.email?.message}
 					</Typography>
 
-					{/* Se debe utilizar un FormControl */}
 					<FormControl fullWidth>
 						<InputLabel>Genero</InputLabel>
 						<Controller
@@ -122,7 +104,6 @@ export const Form = () => {
 						/>
 					</FormControl>
 
-					{/* {errors.gender && <span>Este campo es requerido</span>} */}
 					<Typography variant='caption' color='red'>
 						{errors.gender?.message}
 					</Typography>
